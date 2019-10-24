@@ -1,7 +1,6 @@
 #Mac
 nongit/
 
-/doc/paper/*.pdf
 
 .DS_Store
 
@@ -22,10 +21,6 @@ nongit/
 *.pyo
 
 .Rhistory
-
-icml-2017/tex/*.pdf
-techr/*.pdf
-nips-2017/tex/*.pdf
 
 # Latex files
 
@@ -69,6 +64,3 @@ Backup[ ]of[ ]*.numbers/
 
 # Mac finder files and hidden folders
 .DS_Store
-doc/neurips2019/*.pdf
-
-results/
