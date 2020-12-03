@@ -107,13 +107,16 @@ class Synth(BaseOpt):
 if __name__ == '__main__':
 
     # for training the model (stage 1)
-    Synth.train_test('../nongit/archive/synth-random/symms-rep50cells-forpaper/opt-50cells-lr/model/iter-init/')
+    Synth.train_test(None)
 
     # for training the model (stage 2)
+    # replace the below path with the path to the trained model
     # Synth.aling_model('../nongit/archive/synth-random/symms-rep50cells-forpaper/opt-50cells-lr/model/iter-30400/')
 
     # for predicting z (aligned)
+    # replace the below path with the path to the trained model
     # Synth.predict_z('../nongit/archive/synth-random/symms-rep50cells-forpaper/align-h1-50cells/model/iter-224/')
 
     # for predicting z (unaligned)
+    # replace the below path with the path to the trained model
     # Synth.predict_z('../nongit/archive/synth-random/symms-rep50cells-forpaper/align-h1-50cells/model/iter-init/')

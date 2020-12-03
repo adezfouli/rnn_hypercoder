@@ -4,7 +4,7 @@ from expr.base_opt import BaseOpt
 from expr.data_process import DataProcess
 from expr.data_reader import DataReader
 from model.consts import Const
-from model.rnn2rnn import HYPVAE, HYPAAE, HYPMDD
+from model.rnn2rnn import HYPMDD
 from util.helper import get_total_pionts, ensure_dir, fix_init_all_vars
 from util.logger import LogFile, DLogger
 import pandas as pd
@@ -78,7 +78,7 @@ class BD(BaseOpt):
             tf.reset_default_graph()
 
             with tf.device('/device:GPU:0'):
-                model = HYPMDD(enc_cells=20, dec_cells=3, a_size=2, s_size=0, latent_size=2, n_T=action.shape[1],
+                model = HYPMDD(enc_cells=20, dec_cells=3, a_size=2, s_size=0, latent_size=2, n_T=3,
                                static_loops=True, mmd_coef=2)
 
             ensure_dir(output)
@@ -112,11 +112,13 @@ if __name__ == '__main__':
 
     # see diff.txt in the output folders for differences with committed versions
 
-    # for optimising the model (Stage 1)
-    BD.opt_model_train_test('../nongit/archive/BD/symms-forpaper/opt/model/iter-init/')
+    # for optimising the model (Stage 1). Note in the paper a fixed init model was used
+    BD.opt_model_train_test(None)
 
     # for aligning the model (Stage 2)
+    # replace the below path with the path to the trained model
     # BD.aling_model('../nongit/archive/BD/symms-forpaper/opt/model/iter-43800/')
 
     # for getting latent representation
+    # replace the below path with the path to the trained model
     # BD.predict_z('../nongit/archive/BD/symms-forpaper/align/aling2-h.1-mm2/model/iter-141/')
