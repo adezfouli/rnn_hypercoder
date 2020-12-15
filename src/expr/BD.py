@@ -4,7 +4,7 @@ from expr.base_opt import BaseOpt
 from expr.data_process import DataProcess
 from expr.data_reader import DataReader
 from model.consts import Const
-from model.rnn2rnn import HYPMDD
+from model.rnn2rnn import HYPMMD
 from util.helper import get_total_pionts, ensure_dir, fix_init_all_vars
 from util.logger import LogFile, DLogger
 import pandas as pd
@@ -42,7 +42,7 @@ class BD(BaseOpt):
             tf.reset_default_graph()
 
             with tf.device('/device:GPU:0'):
-                model = HYPMDD(enc_cells=20, dec_cells=3, a_size=2, s_size=0, latent_size=2, n_T=action.shape[1],
+                model = HYPMMD(enc_cells=20, dec_cells=3, a_size=2, s_size=0, latent_size=2, n_T=action.shape[1],
                                static_loops=False, mmd_coef=50)
 
             ensure_dir(output)
@@ -70,7 +70,7 @@ class BD(BaseOpt):
                                )
 
     @classmethod
-    def aling_model(cls, model_path):
+    def align_model(cls, model_path):
         output = '../nongit/local/BD/align/'
         with LogFile(output, 'run.log'):
             action, reward, state, ids, seq_lengths = BD.get_data()
@@ -78,7 +78,7 @@ class BD(BaseOpt):
             tf.reset_default_graph()
 
             with tf.device('/device:GPU:0'):
-                model = HYPMDD(enc_cells=20, dec_cells=3, a_size=2, s_size=0, latent_size=2, n_T=3,
+                model = HYPMMD(enc_cells=20, dec_cells=3, a_size=2, s_size=0, latent_size=2, n_T=action.shape[1],
                                static_loops=True, mmd_coef=2)
 
             ensure_dir(output)
@@ -102,7 +102,7 @@ class BD(BaseOpt):
             DLogger.logger().debug("data points: " + str(action.shape[0]))
             tf.reset_default_graph()
             ensure_dir(output)
-            model = HYPMDD(enc_cells=20, dec_cells=3, a_size=2, s_size=0, latent_size=2, n_T=action.shape[1],
+            model = HYPMMD(enc_cells=20, dec_cells=3, a_size=2, s_size=0, latent_size=2, n_T=action.shape[1],
                            static_loops=False
                            )
             BD.predict(model, action, reward, state, ids, seq_lengths, '../nongit/local/BD/', model_path)
@@ -117,7 +117,7 @@ if __name__ == '__main__':
 
     # for aligning the model (Stage 2)
     # replace the below path with the path to the trained model
-    # BD.aling_model('../nongit/archive/BD/symms-forpaper/opt/model/iter-43800/')
+    # BD.align_model('../nongit/archive/BD/symms-forpaper/opt/model/iter-43800/')
 
     # for getting latent representation
     # replace the below path with the path to the trained model

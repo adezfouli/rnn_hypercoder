@@ -2,7 +2,7 @@ from expr.base_opt import BaseOpt
 from expr.data_process import DataProcess
 from expr.data_reader import DataReader
 from model.consts import Const
-from model.rnn2rnn import HYPMDD
+from model.rnn2rnn import HYPMMD
 from util.helper import ensure_dir, get_total_pionts
 from util.logger import LogFile, DLogger
 import tensorflow as tf
@@ -40,7 +40,7 @@ class Synth(BaseOpt):
 
             tf.reset_default_graph()
 
-            model = HYPMDD(enc_cells=50, dec_cells=3, a_size=2, s_size=0, latent_size=2, n_T=action.shape[1],
+            model = HYPMMD(enc_cells=50, dec_cells=3, a_size=2, s_size=0, latent_size=2, n_T=action.shape[1],
                            static_loops=False, mmd_coef=50)
 
             ensure_dir(output)
@@ -72,7 +72,7 @@ class Synth(BaseOpt):
 
             tf.reset_default_graph()
 
-            model = HYPMDD(enc_cells=50, dec_cells=3, a_size=2, s_size=0, latent_size=2, n_T=action.shape[1],
+            model = HYPMMD(enc_cells=50, dec_cells=3, a_size=2, s_size=0, latent_size=2, n_T=action.shape[1],
                            static_loops=True, mmd_coef=50
                            )
 
@@ -94,7 +94,7 @@ class Synth(BaseOpt):
         with LogFile(output, 'run.log'):
             action, reward, state, ids, seq_lengths = Synth.get_data()
             tf.reset_default_graph()
-            model = HYPMDD(enc_cells=50, dec_cells=3, a_size=2, s_size=0, latent_size=2 , n_T=action.shape[1],
+            model = HYPMMD(enc_cells=50, dec_cells=3, a_size=2, s_size=0, latent_size=2, n_T=action.shape[1],
                            static_loops=False
                            )
             Synth.predict(

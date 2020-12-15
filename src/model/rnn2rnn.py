@@ -12,7 +12,7 @@ from util.helper import state_to_onehot, fix_init_all_vars
 from util.test_env import TestLog, SaveLog
 import numpy as np
 
-class HYPMDD:
+class HYPMMD:
 
     def __init__(self, enc_cells, dec_cells, a_size, s_size, latent_size, n_T, static_loops, mmd_coef=2):
 
@@ -31,7 +31,7 @@ class TestRNN2RNN(unittest.TestCase):
         tf.set_random_seed(12)
         action, reward, state, ids, seq_lengths = cls.get_data()
 
-        rnn2rnn = HYPMDD(enc_cells=10, dec_cells=10, a_size=2, s_size=5, latent_size=3, n_T=action.shape[1],
+        rnn2rnn = HYPMMD(enc_cells=10, dec_cells=10, a_size=2, s_size=5, latent_size=3, n_T=action.shape[1],
                          static_loops=True)
 
         trainables = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES)

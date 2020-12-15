@@ -105,7 +105,7 @@ class DECRNN(ModelBeh):
             a = tf.gradients(a[0][:, :, 0], self.z)[0][:, :, 1]
             self.hess_loss = tf.reduce_mean(tf.abs(a))
         else:
-            DLogger.logger().debug("Hessain loss is deactivated.")
+            DLogger.logger().debug("Hessian loss is deactivated.")
             self.hess_loss = tf.constant(0, Const.FLOAT)
 
         self.z_grad = tf.reduce_mean(tf.abs(tf.gradients(norm_pol[:, :, :, 0], self.z)[0]), axis=[0, 1])
